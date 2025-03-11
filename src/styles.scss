@@ -1,4 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
 @import "tailwindcss";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import './tokens.scss'; 
+
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body { 
+    height: 100%; 
+    color-scheme:light;
+    margin: 0; 
+ }
+
+ :root {
+    mat-toolbar {
+      --mat-toolbar-container-background-color: white;
+    }
+
+  }
+
+
+
+
+
