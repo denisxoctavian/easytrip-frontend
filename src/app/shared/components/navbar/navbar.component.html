@@ -9,7 +9,7 @@
     <button mat-button class="rounded-full">Deals</button>
   </div>
   <div class="hidden md:flex">
-    <button mat-flat-button class="rounded-none">Sign In</button>
+    <button mat-flat-button class="rounded-none" (click)="openDialog()">Sign In</button>
   </div>
 
   <button class="md:hidden" (click)="sidenav.toggle()">
@@ -33,7 +33,7 @@
       <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
         <span>Deals</span>
       </button>
-      <button mat-button class="md:hidden w-full flex justify-between items-center px-4 rounded-none">
+      <button mat-button class="md:hidden w-full flex justify-between items-center px-4 rounded-none" (click)="openDialog()">
         <span>Sign In</span>
       </button>
     </nav>

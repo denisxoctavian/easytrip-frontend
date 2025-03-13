@@ -1,29 +1,26 @@
 
 @use '@angular/material' as mat;
-@import "tailwindcss";
-@import './tokens.scss'; 
+@use "tailwindcss";
+@use './tokens.scss'; 
+@include mat.core();
+
 
 
 * {
   font-family: 'Poppins', sans-serif;
 }
 
-html, body { 
-    height: 100%; 
-    color-scheme:light;
-    margin: 0; 
- }
+html, body {
+  height: 100%;
+  color-scheme: light;
+  margin: 0;
+}
 
- :root {
-    mat-toolbar {
-      --mat-toolbar-container-background-color: white;
-    }
+mat-toolbar, mat-sidenav {
+  --mat-toolbar-container-background-color: white;
+  --mat-sidenav-container-background-color: white;
+}
 
-    mat-sidenav{
-      --mat-sidenav-container-background-color:white;
-    }
-
-  }
 
 
 
