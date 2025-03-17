@@ -1,24 +1,33 @@
 
 @use '@angular/material' as mat;
 @use "tailwindcss";
-@use './tokens.scss'; 
-@include mat.core();
+@use "./styles/_theme-colors.scss" as theme-colors;
 
-
-
-* {
-  font-family: 'Poppins', sans-serif;
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: theme-colors.$primary-palette,
+        tertiary: theme-colors.$tertiary-palette,
+      ),
+      typography: Poppins,
+      density: 0,
+    )
+  );
 }
 
-html, body {
+html,
+body {
   height: 100%;
-  color-scheme: light;
-  margin: 0;
 }
-
-mat-toolbar, mat-sidenav {
-  --mat-toolbar-container-background-color: white;
-  --mat-sidenav-container-background-color: white;
+body {
+  margin: 0;
+  font-family: Poppins, "Helvetica Neue", sans-serif;
+}
+body {
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 
