@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialogActions,
@@ -8,6 +8,9 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../../shared/services/user.service';
+import { environment } from '../../environment/environment.development';
+
 
 
 
@@ -20,5 +23,15 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LoginComponent {
   readonly dialogRef = inject(MatDialogRef<LoginComponent>);
+  private userService = inject(UserService);
+  user: any = null;
 
+
+  login(){
+    const redirectUri = window.location.origin; 
+    const authUrl = environment.APP_ENVIRONMENT + `/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    window.location.href = authUrl; 
+  }
+
+  
 }

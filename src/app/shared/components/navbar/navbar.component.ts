@@ -5,6 +5,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../../../features/login/login.component';
+import { UserService } from '../../services/user.service';
+
 
 
 
@@ -18,11 +20,22 @@ import { LoginComponent } from '../../../features/login/login.component';
 export class NavbarComponent {
   
   readonly dialog = inject(MatDialog);
+  private userService = inject(UserService);
+
 
   //Open login dialog
   openDialog(){
       this.dialog.open(LoginComponent, {width:'500px',height:'300px',panelClass: ['animate__animated','animate__fadeInDown']},)
     }
+
+  ngOnInit(): void {
+    this.userService.getUserInfo().subscribe(result=>{
+      console.log(result.name);
+      //Store the user in database....
+      //...
+      //...
+    });
+  }
 
 }
 
