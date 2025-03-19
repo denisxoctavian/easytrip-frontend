@@ -24,6 +24,6 @@ export class UserService{
     constructor(){}
 
     getUserInfo(): Observable<any> {
-        return this.http.get<any>(environment.APP_PATH+ '/user', { withCredentials: true });
+        return this.http.get<any>(environment.API_PATH+ '/user', { withCredentials: true });
     }
 }

@@ -29,7 +29,7 @@ export class LoginComponent {
 
   login(){
     const redirectUri = window.location.origin; 
-    const authUrl = environment.APP_ENVIRONMENT + `/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    const authUrl = environment.API_PATH + `/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
     window.location.href = authUrl; 
   }
 
