@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/easytrip-frontend",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/main.ts",  
             "polyfills": [
               "zone.js"
             ],

@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../shared/services/user.service';
-import { environment } from '../../environment/environment.development';
+import { environment } from '../../../environments/environment.development';
 
 
 
