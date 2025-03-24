@@ -27,11 +27,14 @@ export class LoginComponent {
   user: any = null;
 
 
-  login(){
-    const redirectUri = window.location.origin; 
-    const authUrl = environment.API_PATH + `/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
+  login() {
+    const redirectUri = `https://easytrip-frontend.vercel.app`;
+    const authUrl = `${environment.API_PATH}/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    console.log("Redirecting to:", authUrl);
     window.location.href = authUrl; 
   }
+  
+  
 
   
 }
