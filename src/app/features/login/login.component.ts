@@ -28,9 +28,9 @@ export class LoginComponent {
 
 
   login() {
-    const redirectUri = "https://easytrip-frontend.vercel.app";
+    const redirectUri = "https://easytrip-z9dh.onrender.com/login/oauth2/code/github";
     const authUrl = `${environment.API_PATH}/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
-    console.log("Redirecting to:", authUrl);
+    console.log("Redirecting to:", redirectUri);
     window.location.href = authUrl; 
   }
   
