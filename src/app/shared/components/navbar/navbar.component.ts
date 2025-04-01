@@ -29,11 +29,10 @@ export class NavbarComponent {
     }
 
   ngOnInit(): void {
-    this.userService.getUserInfo().subscribe(result=>{
-      console.log(result.name);
-      //Store the user in database....
-      //...
-      //...
+    this.userService.getUserInfo().subscribe((data) => {
+      if (data.authenticated) {
+        console.log(data);
+      }
     });
   }
 

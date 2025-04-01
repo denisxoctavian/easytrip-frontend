@@ -10,6 +10,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../shared/services/user.service';
 import { environment } from '../../../environments/environment.development';
+import { AuthService } from '../../shared/services/auth.service';
 
 
 
@@ -24,17 +25,17 @@ import { environment } from '../../../environments/environment.development';
 export class LoginComponent {
   readonly dialogRef = inject(MatDialogRef<LoginComponent>);
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   user: any = null;
 
 
-  login() {
-    const redirectUri = "https://easytrip-z9dh.onrender.com/login/oauth2/code/github";
-    const authUrl = `${environment.API_PATH}/oauth2/authorization/github?redirect_uri=${encodeURIComponent(redirectUri)}`;
-    console.log("Redirecting to:", redirectUri);
-    window.location.href = authUrl; 
+  login(): void {
+    this.authService.login();
   }
   
-  
+  logout(): void {
+    this.authService.logout();
+  }
   
 
   
