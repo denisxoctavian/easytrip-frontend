@@ -8,9 +8,29 @@
     <button mat-button class="rounded-full">Trip Planner</button>
     <button mat-button class="rounded-full">Deals</button>
   </div>
-  <div class="hidden md:flex">
-    <button mat-flat-button class="rounded-none" (click)="openDialog()">Sign In</button>
-  </div>
+
+  @if(userLogged){
+    <div class="hidden md:flex">
+
+      <button mat-button [matMenuTriggerFor]="signOutMenu" aria-label="icon-button with avatar" class="flex items-center">
+        <img [src]="avatarUrl"  alt="Avatar" class="w-8 h-8 rounded-full object-cover mr-2">
+        <mat-icon iconPositionEnd class="ml-auto">keyboard_arrow_down</mat-icon>
+      </button>
+      
+
+      <mat-menu #signOutMenu="matMenu" class="w-35">
+        <button mat-menu-item>
+          <span>Sign Out</span>
+        </button>
+      </mat-menu>
+
+    </div>
+  }@else {
+    <div class="hidden md:flex">
+      <button mat-flat-button class="rounded-none" (click)="signIn()">Sign In</button>
+    </div>
+  }
+ 
 
   <button class="md:hidden" (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
@@ -26,16 +46,28 @@
     <nav class="flex flex-col space-y-2 mt-10">
       <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
         <span>Blog</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
       <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
         <span>Trip Planner</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
       <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
         <span>Deals</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
-      <button mat-button class="md:hidden w-full flex justify-between items-center px-4 rounded-none" (click)="openDialog()">
-        <span>Sign In</span>
-      </button>
+   
+      @if(userLogged){
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
+          <span>Sign Out</span>
+          <mat-icon iconPositionEnd>chevron_right</mat-icon>
+        </button>
+      }@else {
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="signIn()">
+          <span>Sign In</span>
+          <mat-icon iconPositionEnd>chevron_right</mat-icon>
+        </button>
+      }
     </nav>
   </mat-sidenav>
 </mat-sidenav-container>

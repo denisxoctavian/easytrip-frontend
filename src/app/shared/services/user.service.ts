@@ -19,18 +19,15 @@ const httpOptions = {
 })
 export class UserService{
     private http = inject(HttpClient);
+    response: string[] =[];
 
     constructor(){}
 
-    getUserInfo(): Observable<any> {
-        return this.http.get<any>(environment.API_PATH +'/api/user', { withCredentials: true });
-      }
 
-
-    debug(): Observable<any> {
-        return this.http.get<any>(environment.API_PATH + '/wakeup', {
-
-        });
+    getMessages():Observable<any>{
+        return this.http.get<any>(environment.API_PATH+'/messages',{withCredentials:true});
     }
+
+
     
 }

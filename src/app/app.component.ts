@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { NavbarComponent } from "./shared/components/navbar/navbar.component";
+import { Component } from '@angular/core';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 

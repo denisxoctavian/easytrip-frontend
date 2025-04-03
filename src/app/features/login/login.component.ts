@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, inject, signal } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialogActions,
@@ -8,35 +8,51 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../../shared/services/user.service';
-import { environment } from '../../../environments/environment.development';
 import { AuthService } from '../../shared/services/auth.service';
+import { CookiesService } from '../../shared/services/cookies.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 
 
 
 @Component({
   selector: 'app-login',
-  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, MatIconModule],
+  imports: [MatButtonModule, MatDialogTitle, MatDialogContent, MatIconModule,MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   readonly dialogRef = inject(MatDialogRef<LoginComponent>);
-  private userService = inject(UserService);
-  private authService = inject(AuthService);
-  user: any = null;
 
 
-  login(): void {
-    this.authService.login();
+  loginEmail = signal("");
+  loginPassword = signal("");
+
+  signupEmail = signal("");
+  signupFullName = signal("");
+  signupPassword = signal("");
+  signupConfirmPassword = signal("");
+  hidePassword = signal(true);
+
+  login:boolean =true;
+  signup:boolean =false;
+
+  switchForms() {
+    this.login = !this.login;
+    this.signup = !this.signup;
   }
   
-  logout(): void {
-    this.authService.logout();
-  }
-  
 
-  
+  signInUser(){
+    console.log(this.loginEmail())
+    console.log(this.loginPassword())
+  }
+
+  signUpUser(){
+
+  }
+
 }

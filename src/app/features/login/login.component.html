@@ -3,15 +3,151 @@
 
     <h2 mat-dialog-title class="text-center font-bold"><b>Let's Start with Easytrip</b></h2>
     <mat-dialog-content class="text-center">
-      <div>
-        To access all the functionalities and services, please log in to your account first.
-      </div>
-    </mat-dialog-content>
+     
+     @if(login){
+      <form class="flex-flex-col gap-5" #loginForm="ngForm">
+        <mat-form-field class="w-full">
+          <input matInput type="email" [(ngModel)]="loginEmail" name="loginEmail" required #loginEmailCtrl="ngModel"
+            placeholder="Enter your email" email>
+          <mat-icon matSuffix>email</mat-icon>
+          @if (loginEmailCtrl.hasError('required') && loginEmailCtrl.touched) {
+          <mat-error>Email is required</mat-error>
+          }
+          @if (loginEmailCtrl.hasError('email') && loginEmailCtrl.touched) {
+          <mat-error>Please enter a valid email</mat-error>
+          }
+        </mat-form-field>
+  
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
+            [(ngModel)]="loginPassword" name="loginPassword" required #loginPasswordCtrl="ngModel" minlength="6" />
+          <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" type="button" class="me-1">
+            <mat-icon class="dark:text-gray-300">{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (loginPasswordCtrl.hasError('required') && loginPasswordCtrl.touched) {
+          <mat-error>Password is required</mat-error>
+          }
+          @if (loginPasswordCtrl.hasError('minlength') && loginPasswordCtrl.touched) {
+          <mat-error>Minimum length is 6 characters</mat-error>
+          }
+        </mat-form-field>
+  
+        <div class="w-full mb-6">
+          <button mat-flat-button type="submit"
+            class="!rounded-none w-full h-[40px] !transition-colors inline-flex items-center"
+            (click)="signInUser()"
+             [disabled]="loginForm.invalid">
+            <div class="mr-2" > </div>
+            <span>Sign in</span>
+          </button>
+        </div>
+  
+        <div class="flex justify-center">
+          <div class="flex gap-2 mb-6 text-sm">
+            <span class="dark:text-gray-300">Don't have an account?</span>
+            <a class="text-primary cursor-pointer hover:text-green-500 dark:hover:text-green-500" (click)="switchForms()">
+              Sign up!
+            </a>
+          </div>
+        </div>
+  
+        @if (false) {
+        <div class="text-red-500 text-sm mt-4 text-center">
+         test
+        </div>
+        }
+        @if (false) {
+        <div class="text-green-500 text-sm mt-4 text-center">
+          test
+        </div>
+        }
+      </form>
+     }@else if (signup) {
+      <form class="flex-flex-col gap-5" #loginForm="ngForm">
 
-    <mat-dialog-actions class="flex flex-col items-center w-full">
-      <button mat-button mat-dialog-close class="w-full bg-red-500 text-white py-2 rounded-lg" (click)="login()">
-          <mat-icon>login</mat-icon>Continue with Github
-      </button>
-    </mat-dialog-actions>
+        <mat-form-field class="w-full">
+          <input matInput type="text" [(ngModel)]="signupFullName" name="signupFullName" required #signupFullNameCtrl="ngModel"
+            placeholder="Enter your full name" signupFullName>
+          <mat-icon matSuffix>person</mat-icon>
+          @if (signupFullNameCtrl.hasError('required') && signupFullNameCtrl.touched) {
+          <mat-error>Full name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <input matInput type="email" [(ngModel)]="signupEmail" name="signupEmail" required #signupEmailCtrl="ngModel"
+            placeholder="Enter your email" email>
+          <mat-icon matSuffix>email</mat-icon>
+          @if (signupEmailCtrl.hasError('required') && signupEmailCtrl.touched) {
+          <mat-error>Email is required</mat-error>
+          }
+          @if (signupEmailCtrl.hasError('email') && signupEmailCtrl.touched) {
+          <mat-error>Please enter a valid email</mat-error>
+          }
+        </mat-form-field>
+  
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
+            [(ngModel)]="signupPassword" name="signupPassword" required #signupPasswordCtrl="ngModel" minlength="6" />
+          <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" type="button" class="me-1">
+            <mat-icon class="dark:text-gray-300">{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (signupPasswordCtrl.hasError('required') && signupPasswordCtrl.touched) {
+          <mat-error>Password is required</mat-error>
+          }
+          @if (signupPasswordCtrl.hasError('minlength') && signupPasswordCtrl.touched) {
+          <mat-error>Minimum length is 6 characters</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Confirm password</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Confirm your password"
+            [(ngModel)]="signupConfirmPassword" name="signupConfirmPassword" required #signupConfirmPasswordCtrl="ngModel"/>
+          <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" type="button" class="me-1">
+            <mat-icon class="dark:text-gray-300">{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (signupConfirmPasswordCtrl.hasError('required') && signupConfirmPasswordCtrl.touched) {
+          <mat-error>Password is required</mat-error>
+          }
+          @if (signupConfirmPasswordCtrl.hasError('minlength') && signupConfirmPasswordCtrl.touched) {
+          <mat-error>Minimum length is 6 characters</mat-error>
+          }
+        </mat-form-field>
+  
+        <div class="w-full mb-6">
+          <button mat-flat-button type="submit"
+            class="!rounded-none w-full h-[40px] !transition-colors inline-flex items-center"
+             [disabled]="loginForm.invalid">
+            <div class="mr-2" > </div>
+            <span>Sign up</span>
+          </button>
+        </div>
+  
+        <div class="flex justify-center">
+          <div class="flex gap-2 mb-6 text-sm">
+            <span class="dark:text-gray-300">Already have an account?</span>
+            <a class="text-primary cursor-pointer hover:text-green-500 dark:hover:text-green-500" (click)="switchForms()">
+              Sign in!
+            </a>
+          </div>
+        </div>
+  
+        @if (false) {
+        <div class="text-red-500 text-sm mt-4 text-center">
+         test
+        </div>
+        }
+        @if (false) {
+        <div class="text-green-500 text-sm mt-4 text-center">
+          test
+        </div>
+        }
+      </form>
+     }
+
+    </mat-dialog-content>
   </body>
 </html>
