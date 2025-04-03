@@ -32,6 +32,9 @@ export class NavbarComponent {
 
   @HostListener('window:resize', [])
   onResize() {
+    if (window.innerWidth < 768) {
+      window.scrollTo(0, 0); 
+    }
     if (window.innerWidth >= 768 && this.sidenav.opened) {
       this.sidenav.close();
     }
