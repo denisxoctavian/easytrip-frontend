@@ -19,7 +19,7 @@ const httpOptions = {
 })
 export class UserService{
     private http = inject(HttpClient);
-    response: string[] =[];
+  
 
     constructor(){}
 

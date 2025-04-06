@@ -42,6 +42,12 @@
             <span>Sign in</span>
           </button>
         </div>
+
+        <!-- @if (this.loginResponse != '200') {
+          <div class="text-red-500 text-sm mt-4 text-center">
+           test
+          </div>
+          } -->
   
         <div class="flex justify-center">
           <div class="flex gap-2 mb-6 text-sm">
@@ -51,20 +57,9 @@
             </a>
           </div>
         </div>
-  
-        @if (false) {
-        <div class="text-red-500 text-sm mt-4 text-center">
-         test
-        </div>
-        }
-        @if (false) {
-        <div class="text-green-500 text-sm mt-4 text-center">
-          test
-        </div>
-        }
       </form>
      }@else if (signup) {
-      <form class="flex-flex-col gap-5" #loginForm="ngForm">
+      <form class="flex-flex-col gap-5" #registerForm="ngForm">
 
         <mat-form-field class="w-full">
           <input matInput type="text" [(ngModel)]="signupFullName" name="signupFullName" required #signupFullNameCtrl="ngModel"
@@ -119,8 +114,9 @@
   
         <div class="w-full mb-6">
           <button mat-flat-button type="submit"
+            (click)="signUpUser()"
             class="!rounded-none w-full h-[40px] !transition-colors inline-flex items-center"
-             [disabled]="loginForm.invalid">
+             [disabled]="registerForm.invalid">
             <div class="mr-2" > </div>
             <span>Sign up</span>
           </button>
@@ -129,17 +125,13 @@
         <div class="flex justify-center">
           <div class="flex gap-2 mb-6 text-sm">
             <span class="dark:text-gray-300">Already have an account?</span>
-            <a class="text-primary cursor-pointer hover:text-green-500 dark:hover:text-green-500" (click)="switchForms()">
+            <a class="text-primary cursor-pointer hover:text-green-500 dark:hover:text-green-500" (click)="switchForms();">
               Sign in!
             </a>
           </div>
         </div>
   
-        @if (false) {
-        <div class="text-red-500 text-sm mt-4 text-center">
-         test
-        </div>
-        }
+
         @if (false) {
         <div class="text-green-500 text-sm mt-4 text-center">
           test
