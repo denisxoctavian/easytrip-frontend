@@ -1,74 +1,35 @@
 <mat-toolbar class="border-b border-gray-300 flex justify-between items-center px-4 z-below">
-  <button aria-label="Homepage button">
+  <button aria-label="Homepage button" (click)="homeClicked()">
     <img src="/imgs/logo.png" alt="logo" class="w-[120px]" loading="eager">
   </button>
-  
+
   <div class="hidden md:flex flex-1 justify-center space-x-4">
-    <button mat-button class="rounded-full">Blog</button>
-    <button mat-button class="rounded-full">Trip Planner</button>
-    <button mat-button class="rounded-full">Deals</button>
+    <button mat-button class="rounded-full" (click)="blogClicked()">Blog</button>
+    <button mat-button class="rounded-full" (click)="tripPlannerClicked()">Trip Planner</button>
+    <button mat-button class="rounded-full" (click)="dealsClicked()">Deals</button>
   </div>
 
   @if(userLogged){
     <div class="hidden md:flex">
-
       <button mat-button [matMenuTriggerFor]="signOutMenu" aria-label="icon-button with avatar" class="flex items-center">
-        <img [src]="avatarUrl"  alt="Avatar" class="w-8 h-8 rounded-full object-cover mr-2">
+        <mat-icon>person</mat-icon>
         <mat-icon iconPositionEnd class="ml-auto">keyboard_arrow_down</mat-icon>
       </button>
-      
 
       <mat-menu #signOutMenu="matMenu" class="w-35">
         <button mat-menu-item>
-          <span>Sign Out</span>
+          <span (click)="signOut()">Sign Out</span>
         </button>
       </mat-menu>
-
     </div>
   }@else {
     <div class="hidden md:flex">
       <button mat-flat-button class="rounded-none" (click)="signIn()">Sign In</button>
     </div>
   }
- 
 
-  <button class="md:hidden" (click)="sidenav.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-
-<mat-sidenav-container class="h-screen pt-[64px] z-above">
-  <mat-sidenav #sidenav mode="over" class="w-64 p-2 relative">
-    <button mat-icon-button (click)="sidenav.close()" class="absolute top-2 w-10 h-10 flex items-center justify-center rounded-none">
-      <mat-icon>close</mat-icon>
-    </button>
-
-    <nav class="flex flex-col space-y-2 mt-10">
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
-        <span>Blog</span>
-        <mat-icon iconPositionEnd>chevron_right</mat-icon>
-      </button>
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
-        <span>Trip Planner</span>
-        <mat-icon iconPositionEnd>chevron_right</mat-icon>
-      </button>
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
-        <span>Deals</span>
-        <mat-icon iconPositionEnd>chevron_right</mat-icon>
-      </button>
+    <button class="md:hidden" (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>    
    
-      @if(userLogged){
-        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
-          <span>Sign Out</span>
-          <mat-icon iconPositionEnd>chevron_right</mat-icon>
-        </button>
-      }@else {
-        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="signIn()">
-          <span>Sign In</span>
-          <mat-icon iconPositionEnd>chevron_right</mat-icon>
-        </button>
-      }
-    </nav>
-  </mat-sidenav>
-</mat-sidenav-container>
-
+</mat-toolbar>

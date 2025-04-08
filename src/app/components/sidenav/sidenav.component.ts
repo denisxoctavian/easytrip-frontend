@@ -1,47 +1,36 @@
 import { Component, HostListener, inject, Input, ViewChild } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { LoginComponent } from '../../features/login/login.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './../../features/login/login.component';
-import { UserService } from '../../shared/services/user.service';
-import { AuthService } from '../../shared/services/auth.service';
-import {MatMenuModule} from '@angular/material/menu'
 import { CookiesService } from '../../shared/services/cookies.service';
-import { Router } from '@angular/router';
-import { SidenavComponent } from '../sidenav/sidenav.component';
-
-
-
-
-
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule,MatSidenavModule,MatMenuModule],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  selector: 'app-sidenav',
+  imports: [MatButtonModule, MatIconModule,MatSidenavModule,MatMenuModule,RouterModule],
+  templateUrl: './sidenav.component.html',
+  styleUrl: './sidenav.component.scss'
 })
-export class NavbarComponent {
-  
-  readonly dialog = inject(MatDialog);
+export class SidenavComponent {
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+readonly dialog = inject(MatDialog);
   public userLogged = false;
   public avatarUrl: string = '';
   private cookiesService=inject(CookiesService);
   private readonly router = inject(Router);
   
 
-  @Input() sidenavc!: SidenavComponent;
-
-
   @HostListener('window:resize', [])
   onResize() {
     if (window.innerWidth < 768) {
       window.scrollTo(0, 0); 
     }
-    if (window.innerWidth >= 768 && this.sidenavc.opened()) {
-      this.sidenavc.close();
+    if (window.innerWidth >= 768 && this.sidenav.opened) {
+      this.sidenav.close();
     }
   }
 
@@ -58,7 +47,7 @@ export class NavbarComponent {
   }
 
   signOut() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
     this.cookiesService.deleteCookie('auth_token');
     window.location.reload();
   }
@@ -68,6 +57,7 @@ export class NavbarComponent {
         this.userLogged = true;
     
   }
+
 
   tripPlannerClicked(){
     this.router.navigate(['/trip-planner'])
@@ -81,16 +71,22 @@ export class NavbarComponent {
     this.router.navigate(['/deals'])
   }
 
-  homeClicked(){
-    this.router.navigate(['/home']);
+  open(){
+    this.sidenav.open();
   }
-
-
- toggleSidenav() {
-  this.sidenavc.toggle();
-  }
-
   
+  close(){
+    this.sidenav.close();
+  }
+  
+
+  toggle(){
+    this.sidenav.toggle();
+  }
+
+  opened(){
+    return this.sidenav.opened;
+  }
+  
+
 }
-
-

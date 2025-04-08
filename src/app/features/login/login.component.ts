@@ -13,6 +13,7 @@ import { CookiesService } from '../../shared/services/cookies.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {AbstractControl, FormControl, FormsModule, NgForm, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -30,7 +31,10 @@ export class LoginComponent {
 
   readonly dialogRef = inject(MatDialogRef<LoginComponent>);
   private authService = inject(AuthService);
-  loginResponse = '200';
+  private cookiesService = inject(CookiesService);
+  private cdr = inject(ChangeDetectorRef);
+  loginResponse: string | null = null;
+
 
   loginEmail = signal("");
   loginPassword = signal("");
@@ -51,7 +55,6 @@ export class LoginComponent {
     this.registerForm?.reset();
   }
   
-  
   signInUser(){
 
     const loginBody = {
@@ -61,12 +64,20 @@ export class LoginComponent {
 
     this.authService.login(loginBody).subscribe({
       next:(response)=>{
-        console.log(response);
-        this.loginResponse = response.status;
+        this.loginResponse = null;
+        this.cdr.detectChanges();
+        if(response.token !== null){
+          this.cookiesService.setCookie("auth_token",response.token);
+          this.dialogRef.close();
+        }else{
+          this.cookiesService.deleteCookie("auth_token");
+        }
+        
       },
       error:(error)=>{
         console.log("There was an error"+ error);
-        this.loginResponse = error.status;
+        this.loginResponse = 'The username or password is incorrect!';
+        this.cdr.detectChanges();
       }
     })
 
@@ -82,7 +93,11 @@ export class LoginComponent {
 
     this.authService.register(registerBody).subscribe({
       next:(response)=>{
-        console.log(response);
+        if(response.token !== null){
+          this.cookiesService.setCookie("auth_token",response.token);
+        }else{
+          this.cookiesService.deleteCookie("auth_token");
+        }
       },
       error:(error)=>{
         console.log("There was an error"+ error);

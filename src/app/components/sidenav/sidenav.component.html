@@ -1,0 +1,38 @@
+<mat-sidenav-container>
+<mat-sidenav #sidenav mode="over" class="h-full w-64 p-2 relative">
+    <button mat-icon-button (click)="sidenav.close()" class="absolute top-2 right-2">
+      <mat-icon>close</mat-icon>
+    </button>
+  
+    <nav class="flex flex-col space-y-2 mt-10">
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="blogClicked()">
+        <span>Blog</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
+      </button>
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="tripPlannerClicked()">
+        <span>Trip Planner</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
+      </button>
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="dealsClicked()">
+        <span>Deals</span>
+        <mat-icon iconPositionEnd>chevron_right</mat-icon>
+      </button>
+  
+      @if(userLogged){
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
+          <span (click)="signOut()">Sign Out</span>
+          <mat-icon iconPositionEnd>chevron_right</mat-icon>
+        </button>
+      }@else {
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="signIn()">
+          <span>Sign In</span>
+          <mat-icon iconPositionEnd>chevron_right</mat-icon>
+        </button>
+      }
+    </nav>
+</mat-sidenav>
+<mat-sidenav-content>
+    <router-outlet/>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+  
