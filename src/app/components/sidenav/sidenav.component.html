@@ -5,15 +5,15 @@
     </button>
   
     <nav class="flex flex-col space-y-2 mt-10">
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="blogClicked()">
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="blogClicked();sidenav.toggle()">
         <span>Blog</span>
         <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="tripPlannerClicked()">
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="tripPlannerClicked();sidenav.toggle()">
         <span>Trip Planner</span>
         <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
-      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="dealsClicked()">
+      <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="dealsClicked();sidenav.toggle()">
         <span>Deals</span>
         <mat-icon iconPositionEnd>chevron_right</mat-icon>
       </button>
@@ -24,7 +24,7 @@
           <mat-icon iconPositionEnd>chevron_right</mat-icon>
         </button>
       }@else {
-        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="signIn()">
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none" (click)="signIn();sidenav.toggle()">
           <span>Sign In</span>
           <mat-icon iconPositionEnd>chevron_right</mat-icon>
         </button>

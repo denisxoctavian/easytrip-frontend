@@ -8,7 +8,9 @@ import { BlogComponent } from './components/blog/blog.component';
 import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
-    { path:'trip-planner', component: TripPlannerComponent, canActivate: [AuthGuard]},
+    { path:'', component: HomeComponent},
+    { path:'', component: HomeComponent},
+    { path:'trip-planner', component: TripPlannerComponent}, //canActivate: [AuthGuard] removed just for testing purposes
     { path:'login', component: LoginComponent},
     { path:'home', component: HomeComponent},
     { path:'blog', component: BlogComponent},
