@@ -37,7 +37,13 @@ body {
     item-hover-state-layer-color:var(--mat-sys-surface)
   ));
 
+  @include mat.autocomplete-overrides((
+    background-color: var(--mat-sys-surface),
+  ));
 
+  @include mat.datepicker-overrides((
+    calendar-container-background-color:var(--mat-sys-surface),
+  ));
 }
 
 

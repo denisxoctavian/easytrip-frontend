@@ -4,247 +4,277 @@
         <p class="text-base sm:text-lg text-gray-500 mb-6">Just provide some basic information, and our trip planner
             will generate a customized itinerary based on your preferences.</p>
 
-        <div class="mb-6 mt-10">
-            <div class="font-medium text-lg sm:text-xl">What is your destination of choice?</div>
-            <input type="text" id="destination" name="destination"
-                class="mt-5 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-green-700"
-                placeholder="New York">
-        </div>
+        <form [formGroup]="form">
 
-        <hr class="my-4 border-t-1 border-gray-200">
+            <div class="relative w-full mt-5">
+                <mat-form-field class="w-full">
+                    <input type="text" matInput [formControl]="myControl" placeholder="New York"
+                        [matAutocomplete]="auto" style="padding-left: 30px;" />
 
-        <div class="mb-6 mt-15">
-            <div class="font-medium text-lg sm:text-xl">When are you planning to travel?</div>
-            <input type="text" id="destination" name="destination"
-                class="mt-5 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-green-700"
-                placeholder="Select date ...">
-        </div>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)="onOptionSelected($event.option.value)">
 
-        <hr class="my-4 border-t-1 border-gray-200">
+                        @for (option of filteredOptions | async; track option) {
+                        <mat-option [value]="option">
+                            <div class="flex items-center gap-2">
+                                <img [src]="option.flagsPng" alt="{{ option.nameCommon }} flag"
+                                    class="w-5 h-3 object-cover" />
+                                <span>{{ option.nameCommon }}</span>
+                            </div>
+                        </mat-option>
+                        }
 
-        <div class="mb-6 mt-10">
-            <div class="font-medium text-lg sm:text-xl">How many days are you planning to travel?</div>
-            <div class="flex justify-between items-center">
-                <div class="mt-5">Day</div>
-                <div class="mt-5">
-                    <div class="flex items-center gap-2">
+                    </mat-autocomplete>
+                </mat-form-field>
 
-                        <button
-                            class="border rounded-full p-3 border-gray-400 group hover:bg-gray-800 hover:border-gray-800 hover:text-white hover:scale-110 transition-all duration-300">
-                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path class="group-hover:fill-white group-hover:stroke-white"
-                                    d="M11.25 8.125H3.75C3.58424 8.125 3.42527 8.05915 3.30806 7.94194C3.19085 7.82473 3.125 7.66576 3.125 7.5C3.125 7.33424 3.19085 7.17527 3.30806 7.05806C3.42527 6.94085 3.58424 6.875 3.75 6.875H11.25C11.4158 6.875 11.5747 6.94085 11.6919 7.05806C11.8092 7.17527 11.875 7.33424 11.875 7.5C11.875 7.66576 11.8092 7.82473 11.6919 7.94194C11.5747 8.05915 11.4158 8.125 11.25 8.125Z"
-                                    fill="#1f2937"></path>
-                            </svg>
-                        </button>
-
-                        <div class="min-w-[2rem] text-center">3</div>
-
-                        <button
-                            class="border rounded-full p-3 border-gray-400 group hover:bg-gray-800 hover:border-gray-800 hover:text-white hover:scale-110 transition-all duration-300">
-                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path class="group-hover:fill-white group-hover:stroke-white"
-                                    d="M11.25 8.125H8.125V11.25C8.125 11.4158 8.05915 11.5747 7.94194 11.6919C7.82473 11.8092 7.66576 11.875 7.5 11.875C7.33424 11.875 7.17527 11.8092 7.05806 11.6919C6.94085 11.5747 6.875 11.4158 6.875 11.25V8.125H3.75C3.58424 8.125 3.42527 8.05915 3.30806 7.94194C3.19085 7.82473 3.125 7.66576 3.125 7.5C3.125 7.33424 3.19085 7.17527 3.30806 7.05806C3.42527 6.94085 3.58424 6.875 3.75 6.875H6.875V3.75C6.875 3.58424 6.94085 3.42527 7.05806 3.30806C7.17527 3.19085 7.33424 3.125 7.5 3.125C7.66576 3.125 7.82473 3.19085 7.94194 3.30806C8.05915 3.42527 8.125 3.58424 8.125 3.75V6.875H11.25C11.4158 6.875 11.5747 6.94085 11.6919 7.05806C11.8092 7.17527 11.875 7.33424 11.875 7.5C11.875 7.66576 11.8092 7.82473 11.6919 7.94194C11.5747 8.05915 11.4158 8.125 11.25 8.125Z"
-                                    fill="#1f2937"></path>
-                            </svg>
-                        </button>
-                    </div>
+                @if(selectedDestination){
+                <div class="absolute left-3 top-[30%]">
+                    <img [src]="selectedDestination.flagsPng" alt="Flag" class="w-5 h-3 object-cover" />
                 </div>
+                }
+
             </div>
 
-        </div>
 
-        <hr class="my-4 border-t-1 border-gray-200">
+            <hr class="my-4 border-t-1 border-gray-200">
 
-        <div class="mb-6 mt-10">
-            <div id="budget">
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="font-medium text-lg sm:text-xl">What is Your Budget?</div>
-                </div>
+            <div class="mb-6 mt-15">
+                <div class="font-medium text-lg sm:text-xl">When are you planning to travel?</div>
 
-                <p class="-mt-3 mb-6 sm:mb-6 text-sm sm:text-base text-gray-500 font-base">
-                    The budget is exclusively allocated for activities and dining purposes.
-                </p>
+                <mat-form-field class="mt-5 w-full">
+                    <input matInput [matDatepicker]="picker" placeholder="Please insert a date of MM/DD/YYYY format !"
+                        formControlName="date">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
 
+            </div>
+
+            <hr class="my-4 border-t-1 border-gray-200">
+
+            <div class="mb-6 mt-10">
+                <div class="font-medium text-lg sm:text-xl">How many days are you planning to travel?</div>
                 <div class="flex justify-between items-center">
-                    <div class="flex flex-wrap gap-4 w-full">
+                    <div class="mt-5">Day</div>
+                    <div class="mt-5">
+                        <div class="flex items-center gap-2">
 
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Low</div>
-                                <div class="text-xs sm:text-sm text-gray-500">0 - 1000 USD</div>
+                            <button (click)="increaseOrDecreaseDays('decrease')" class="w-10 h-10 flex items-center justify-center border rounded-full border-gray-400 
+                                group hover:bg-green-800 hover:border-green-800 hover:text-white 
+                                hover:scale-110 transition-all duration-300">
+                                <mat-icon>remove</mat-icon>
                             </button>
-                        </div>
 
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Medium</div>
-                                <div class="text-xs sm:text-sm text-gray-500">1000 - 2500 USD</div>
+                            <div class="min-w-[2rem] text-center">{{days}}</div>
+
+                            <button (click)="increaseOrDecreaseDays('increase')" class="w-10 h-10 flex items-center justify-center border rounded-full border-gray-400 
+                                group hover:bg-green-800 hover:border-green-800 hover:text-white 
+                                hover:scale-110 transition-all duration-300">
+                                <mat-icon>add</mat-icon>
                             </button>
-                        </div>
 
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">High</div>
-                                <div class="text-xs sm:text-sm text-gray-500">2500+ USD</div>
-                            </button>
                         </div>
-
                     </div>
                 </div>
+
             </div>
 
-        </div>
+            <hr class="my-4 border-t-1 border-gray-200">
 
-        <hr class="my-4 border-t-1 border-gray-200">
+            <div class="mb-6 mt-10">
+                <div id="budget">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="font-medium text-lg sm:text-xl">What is Your Budget?</div>
+                    </div>
 
-        <div class="mb-6 mt-10">
-            <div id="group">
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="font-medium text-lg sm:text-xl">
-                        Who do you plan on traveling with on your next adventure?
+                    <p class="-mt-3 mb-6 sm:mb-6 text-sm sm:text-base text-gray-500 font-base">
+                        The budget is exclusively allocated for activities and dining purposes.
+                    </p>
+
+                    <div class="flex justify-between items-center">
+                        <div class="flex flex-wrap gap-4 w-full">
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="low" (change)="onBudgetChange('low')"
+                                    [checked]="form.get('low')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Small</div>
+                                    <div class="text-xs sm:text-sm text-gray-500">1000 - 2500 USD</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="medium" (change)="onBudgetChange('medium')"
+                                    [checked]="form.get('medium')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Medium</div>
+                                    <div class="text-xs sm:text-sm text-gray-500">1000 - 2500 USD</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="high" (change)="onBudgetChange('high')"
+                                    [checked]="form.get('high')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/money.svg" alt="money" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">High</div>
+                                    <div class="text-xs sm:text-sm text-gray-500">1000 - 2500 USD</div>
+                                </mat-checkbox>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center">
-                    <div class="flex flex-wrap gap-4 w-full">
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/backpacker.svg" alt="backpacker" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Solo</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/couple.svg" alt="couple" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Couple</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/family.svg" alt="family" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Family</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/friends.svg" alt="friends" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Friends</div>
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
-        </div>
+            <hr class="my-4 border-t-1 border-gray-200">
 
-        <hr class="my-4 border-t-1 border-gray-200">
+            <div class="mb-6 mt-10">
+                <div id="group">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="font-medium text-lg sm:text-xl">
+                            Who do you plan on traveling with on your next adventure?
+                        </div>
+                    </div>
 
-        <div class="mb-15 mt-10">
-            <div id="activities">
+                    <div class="flex justify-between items-center">
+                        <div class="flex flex-wrap gap-4 w-full">
 
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="font-medium text-lg sm:text-xl">
-                        Which activities are you interested in?
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="solo" (change)="onPartnersChange('solo')"
+                                    [checked]="form.get('solo')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/backpacker.svg" alt="backpacker" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Solo</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="couple" (change)="onPartnersChange('couple')"
+                                    [checked]="form.get('couple')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/couple.svg" alt="couple" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Couple</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="family" (change)="onPartnersChange('family')"
+                                    [checked]="form.get('family')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/family.svg" alt="family" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Family</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="friends" (change)="onPartnersChange('friends')"
+                                    [checked]="form.get('friends')?.value"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/friends.svg" alt="friends" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Friends</div>
+                                </mat-checkbox>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center">
-                    <div class="flex flex-wrap gap-4 w-full">
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/beaches.svg" alt="beaches" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Beaches</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/city.svg" alt="city" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">City sightseeing</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/hiking.svg" alt="hiking" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Outdoor adventures</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/festival.svg" alt="festival" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Festivals/events</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/restaurant2.svg" alt="restaurant2" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Food exploration</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/nightlife.svg" alt="nightlife" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Nightlife</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/online-shopping.svg" alt="online-shopping" class="h-7 sm:h-8">
-                                <div class="mt-2 text-sm sm:text-base font-medium">Shopping</div>
-                            </button>
-                        </div>
-
-                        <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <button
-                                class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                                <img src="/imgs/massage.svg" alt="massage" class="h-7 sm:h-8">
-                                <div class="mt-2text-sm sm:text-base font-medium">Spa wellness</div>
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
-        </div>
+            <hr class="my-4 border-t-1 border-gray-200">
 
-        <hr class="my-4 border-t-1 border-gray-200">
+            <div class="mb-15 mt-10">
+                <div id="activities">
 
-        <div class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end" id="submitDiv">
-            <button mat-flat-button >Submit</button>
-        </div>
-        
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="font-medium text-lg sm:text-xl">
+                            Which activities are you interested in?
+                        </div>
+                    </div>
 
+                    <div class="flex justify-between items-center">
+                        <div class="flex flex-wrap gap-4 w-full">
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="beach"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/beaches.svg" alt="beaches" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Beaches</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="city"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/city.svg" alt="city" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">City sightseeing</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="outdoor"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/hiking.svg" alt="hiking" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Outdoor adventures</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="events"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/festival.svg" alt="festival" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Festivals</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="food"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/restaurant2.svg" alt="restaurant2" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Food exploration</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="nightlife"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/nightlife.svg" alt="nightlife" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Nightlife</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="shopping"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/online-shopping.svg" alt="online-shopping" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">Shopping</div>
+                                </mat-checkbox>
+                            </div>
+
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox formControlName="wellness"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img src="/imgs/massage.svg" alt="massage" class="h-7 sm:h-8">
+                                    <div class="mt-2text-sm sm:text-base font-medium">Spa wellness</div>
+                                </mat-checkbox>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="my-4 border-t-1 border-gray-200">
+
+            <div class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end">
+                <button mat-flat-button (click)="submitForm()">Submit</button>
+            </div>
+
+        </form>
     </div>
 </div>
