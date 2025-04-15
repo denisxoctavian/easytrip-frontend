@@ -4,36 +4,44 @@
         <p class="text-base sm:text-lg text-gray-500 mb-6">Just provide some basic information, and our trip planner
             will generate a customized itinerary based on your preferences.</p>
 
-        <form [formGroup]="form">
+            <form [formGroup]="form">
 
-            <div class="relative w-full mt-5">
-                <mat-form-field class="w-full">
-                    <input type="text" matInput [formControl]="myControl" placeholder="New York"
-                        [matAutocomplete]="auto" style="padding-left: 30px;" />
+                <div class="relative w-full mt-5">
+                    <mat-form-field class="w-full">
+                        <input type="text" matInput [formControl]="myControl" placeholder="Germany"
+                            [matAutocomplete]="auto" style="padding-left: 30px;" />
 
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                        (optionSelected)="onOptionSelected($event.option.value)">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)="onOptionSelected($event.option.value)">
+                            @if((filteredOptions | async) === null){
+                                <mat-option disabled>Type at least 2 characters to start searching</mat-option>
+                            }
+                            @for (option of filteredOptions | async; track option) {
+                                <mat-option [value]="option">
+                                  <div class="flex flex-col">
+                                    <div class="flex items-center gap-2">
+                                      <img 
+                                        [src]="option.flagsPng" 
+                                        alt="{{ option.nameCommon }} flag"
+                                        class="w-5 h-3 object-cover" 
+                                      />
+                                      <span>{{ option.nameCommon }}</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 ml-7">{{ option.capital }}</span>
+                                  </div>
+                                </mat-option>
+                              }
+                              
+                        </mat-autocomplete>
+                    </mat-form-field>
 
-                        @for (option of filteredOptions | async; track option) {
-                        <mat-option [value]="option">
-                            <div class="flex items-center gap-2">
-                                <img [src]="option.flagsPng" alt="{{ option.nameCommon }} flag"
-                                    class="w-5 h-3 object-cover" />
-                                <span>{{ option.nameCommon }}</span>
-                            </div>
-                        </mat-option>
-                        }
+                    @if(selectedDestination){
+                    <div class="absolute left-3 top-[30%]">
+                        <img [src]="selectedDestination.flagsPng" alt="Flag" class="w-5 h-3 object-cover" />
+                    </div>
+                    }
 
-                    </mat-autocomplete>
-                </mat-form-field>
-
-                @if(selectedDestination){
-                <div class="absolute left-3 top-[30%]">
-                    <img [src]="selectedDestination.flagsPng" alt="Flag" class="w-5 h-3 object-cover" />
                 </div>
-                }
-
-            </div>
 
 
             <hr class="my-4 border-t-1 border-gray-200">
@@ -42,8 +50,11 @@
                 <div class="font-medium text-lg sm:text-xl">When are you planning to travel?</div>
 
                 <mat-form-field class="mt-5 w-full">
-                    <input matInput [matDatepicker]="picker" placeholder="Please insert a date of MM/DD/YYYY format !"
-                        formControlName="date">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose the date when you are planning to travel"
+                        [min]="todayDate"
+                        readonly
+                        (click)="picker.open()"
+                        formControlName="date" style="padding-left: 30px;">
                     <mat-datepicker-toggle matIconSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
@@ -271,9 +282,13 @@
 
             <hr class="my-4 border-t-1 border-gray-200">
 
-            <div class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end">
-                <button mat-flat-button (click)="submitForm()">Submit</button>
+            <div class="pb-20"></div>
+            <div
+            class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end touch-none overscroll-contain z-50"
+            id="submitDiv">
+            <button mat-flat-button (click)="submitForm()">Submit</button>
             </div>
+
 
         </form>
     </div>

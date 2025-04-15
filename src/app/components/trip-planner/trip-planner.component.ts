@@ -41,14 +41,14 @@ export class TripPlannerComponent implements OnInit {
   days:number = 1;
   myControl = new FormControl<string | Destination>('');
   options: Destination[] = [];
-  filteredOptions: Observable<Destination[]> | undefined;
+  filteredOptions!: Observable<Destination[] | null>;
   selectedDestination: Destination | null = null;
-
+  todayDate = new Date();
  
-  
   form = new FormGroup({
     destination: new FormControl(''),
     date: new FormControl(),
+    days: new FormControl(),
     low: new FormControl(),
     medium: new FormControl(),
     high: new FormControl(),
@@ -66,13 +66,10 @@ export class TripPlannerComponent implements OnInit {
     wellness: new FormControl()
   });
 
-
- 
   ngOnInit() {
     this.destinationService.getDestinationsByRegion().subscribe({
       next: (result) => {
         this.options = result;
-        console.log(result);
       },
       error: (err) => {
         console.error("Error fetching destinations:", err);
@@ -82,9 +79,13 @@ export class TripPlannerComponent implements OnInit {
       startWith(''),
       map(value => {
         const name = typeof value === 'string' ? value : value?.nameCommon;
-        return name ? this._filter(name as string) : this.options.slice();
+        if (!name || name.length < 2) {
+          return null; 
+        }
+        return this._filter(name);
       }),
     );
+    
     this.myControl.valueChanges
     .pipe(debounceTime(200), distinctUntilChanged())
     .subscribe(val => {
@@ -93,22 +94,6 @@ export class TripPlannerComponent implements OnInit {
       }
     });
   }
-
-  onOptionSelected(option: Destination) {
-    this.selectedDestination = option;
-  }
-  
-
-  displayFn(destination: Destination): string {
-    return destination.flag && destination.nameCommon;
-  }
-
-  private _filter(name: string): Destination[] {
-    const filterValue = name.toLowerCase();
-
-    return this.options.filter(option => option.nameCommon.toLowerCase().includes(filterValue));
-  }
-
 
   submitForm() {
     console.log(this.form.value);
@@ -119,6 +104,8 @@ export class TripPlannerComponent implements OnInit {
       this.days--;
     if(action =='increase')
       this.days++;
+
+    this.form.controls['days'].setValue(this.days);
   }
 
   onBudgetChange(selected: 'low' | 'medium' | 'high') {
@@ -138,6 +125,19 @@ export class TripPlannerComponent implements OnInit {
     });
   }
 
+  
+  onOptionSelected(option: Destination) {
+    this.selectedDestination = option;
+  }
+  
+  displayFn(destination: Destination): string {
+    return destination.flag && destination.nameCommon;
+  }
 
+  private _filter(name: string): Destination[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.nameCommon.toLowerCase().includes(filterValue));
+  }
   
 }
