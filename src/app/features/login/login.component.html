@@ -8,7 +8,7 @@
       <form class="flex-flex-col gap-5" #loginForm="ngForm">
         <mat-form-field class="w-full">
           <input matInput type="email" [(ngModel)]="loginEmail" name="loginEmail" required #loginEmailCtrl="ngModel"
-            placeholder="Enter your email" email>
+            placeholder="Enter your email" email>   
           <mat-icon matSuffix>email</mat-icon>
           @if (loginEmailCtrl.hasError('required') && loginEmailCtrl.touched) {
           <mat-error>Email is required</mat-error>
@@ -23,7 +23,7 @@
           <input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
             [(ngModel)]="loginPassword" name="loginPassword" required #loginPasswordCtrl="ngModel" minlength="6" />
           <button mat-icon-button matSuffix (click)="hidePassword.set(!hidePassword())" type="button" class="me-1">
-            <mat-icon class="dark:text-gray-300">{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <mat-icon class="dark:text-gray-300">{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
           @if (loginPasswordCtrl.hasError('required') && loginPasswordCtrl.touched) {
           <mat-error>Password is required</mat-error>

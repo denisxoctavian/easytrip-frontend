@@ -15,9 +15,6 @@ import {AsyncPipe} from '@angular/common';
 
 
 
-
-
-
 @Component({
   selector: 'app-trip-planner',
   standalone: true,

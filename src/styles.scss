@@ -30,6 +30,12 @@ body {
   color: var(--mat-sys-on-surface);
 }
 
+// added this to fix the line that appeared in the passwords fields ( tailwindcss & am compatibility issues)
+.mdc-notched-outline__notch
+{
+  border-right: none;
+}
+
 :root {
   @include mat.menu-overrides((
     item-label-text-size: 13px,
