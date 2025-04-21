@@ -71,6 +71,10 @@ readonly dialog = inject(MatDialog);
     this.router.navigate(['/deals'])
   }
 
+  tripsClicked(){
+    this.router.navigate(['/trips']);
+  }
+
   open(){
     this.sidenav.open();
   }

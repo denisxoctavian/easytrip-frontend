@@ -6,6 +6,7 @@ import { LoginComponent } from './features/login/login.component';
 import { DealsComponent } from './components/deals/deals.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { HomeComponent } from './components/home/home.component';
+import { TripsComponent } from './components/trips/trips.component';
 
 export const routes: Routes = [
     { path:'', component: HomeComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path:'login', component: LoginComponent},
     { path:'home', component: HomeComponent},
     { path:'blog', component: BlogComponent},
+    { path:'trips', component: TripsComponent},
     { path:'deals', component: DealsComponent,canActivate: [AuthGuard]}
     
   

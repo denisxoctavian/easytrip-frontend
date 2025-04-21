@@ -18,6 +18,9 @@
 
       <mat-menu #signOutMenu="matMenu" class="w-35">
         <button mat-menu-item>
+          <span (click)="tripsClicked()">Trip</span>
+        </button>
+        <button mat-menu-item>
           <span (click)="signOut()">Sign Out</span>
         </button>
       </mat-menu>

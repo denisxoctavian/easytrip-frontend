@@ -14,6 +14,7 @@ import { Destination } from '../../models/destinations';
 import { AsyncPipe } from '@angular/common';
 import { ActivityService } from '../../shared/services/activity.service';
 import { Activity } from '../../models/activities';
+import { VacationService } from '../../shared/services/vacation.service';
 
 @Component({
   selector: 'app-trip-planner',
@@ -38,6 +39,7 @@ export class TripPlannerComponent implements OnInit {
 
   private destinationService = inject(DestinationsService);
   private activityService = inject(ActivityService);
+  private vacationService = inject(VacationService);
 
   days: number = 1;
   options: Destination[] = [];
@@ -107,14 +109,13 @@ export class TripPlannerComponent implements OnInit {
     const endingDateObj = new Date(startingDate);
     endingDateObj.setDate(endingDateObj.getDate() + numberOfDays);
   
-    // Travel Companion
     let travelCompanion: string | null = null;
     if (this.form.get("solo")?.value) travelCompanion = "SOLO";
     if (this.form.get("couple")?.value) travelCompanion = "COUPLE";
     if (this.form.get("family")?.value) travelCompanion = "FAMILY";
     if (this.form.get("friends")?.value) travelCompanion = "FRIENDS";
-  
-    // Buget
+
+
     let budget: number;
     if (this.form.get("low")?.value) {
       budget = 1000;
@@ -124,7 +125,7 @@ export class TripPlannerComponent implements OnInit {
       budget = 3000;
     }
   
-   
+
     const activityList:Activity[] = [];
   
     this.activities.forEach(activity => {
@@ -132,8 +133,7 @@ export class TripPlannerComponent implements OnInit {
         activityList.push(activity);
       }
     });
-  
-    // Verificăm dacă destination este un string sau un obiect de tip Destination
+
     const destination = this.form.get("destination")?.value;
     let country: string | undefined;
     if (typeof destination === "string") {
@@ -142,7 +142,6 @@ export class TripPlannerComponent implements OnInit {
       country = destination.nameCommon;
     }
   
-    // Body-ul final
     const requestBody = {
       budget,
       country,
@@ -153,17 +152,24 @@ export class TripPlannerComponent implements OnInit {
       activityList
     };
   
-    console.log("Sending request:", requestBody);
-  
-    // aici trimiți requestul real, de exemplu:
-    // this.tripService.createVacation(requestBody).subscribe(...);
+    this.vacationService.create(requestBody).subscribe({
+     next: (result) => {
+      console.log(result);
+     },
+     error: (err)=>{
+      console.log(err);
+     }
+
+    }
+     
+    )
 }
 
   
   loadActivities(): void {
     this.activityService.getActivities().subscribe({
       next: (data) => {
-        this.activities = data; // salvăm activitățile în variabila componentă
+        this.activities = data; 
       },
       error: (err) => {
         console.error('Eroare la încărcarea activităților:', err);

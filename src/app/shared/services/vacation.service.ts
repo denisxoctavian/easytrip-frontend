@@ -3,7 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment.development";
 import { CookiesService } from "./cookies.service";
-import { Vacation } from "../../models/vacations";
+import { Activity } from "../../models/activities";
 
 
 
@@ -11,7 +11,7 @@ import { Vacation } from "../../models/vacations";
 @Injectable({
     providedIn: 'root'
 })
-export class UserService{
+export class VacationService{
     private http = inject(HttpClient);
     private cookiesService = inject(CookiesService);
 
@@ -27,12 +27,10 @@ export class UserService{
 
     constructor(){}
 
-    getMessages():Observable<any>{
-        return this.http.get<any>(environment.API_PATH+'/messages',this.httpOptions);
+    create(requestBody:any):Observable<any>{
+        return this.http.post<any>(environment.API_PATH+'/vacations',requestBody,this.httpOptions);
     }
 
-    getVacations():Observable<Vacation>{
-        return this.http.get<Vacation>(environment.API_PATH+'/users/vacations', this.httpOptions);
-    }
+  
     
 }

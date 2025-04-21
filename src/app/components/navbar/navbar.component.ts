@@ -85,6 +85,10 @@ export class NavbarComponent {
     this.router.navigate(['/home']);
   }
 
+  tripsClicked(){
+    this.router.navigate(['/trips']);
+  }
+
 
  toggleSidenav() {
   this.sidenavc.toggle();

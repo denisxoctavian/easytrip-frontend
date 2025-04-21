@@ -20,7 +20,11 @@
   
       @if(userLogged){
         <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
-          <span (click)="signOut()">Sign Out</span>
+          <span (click)="tripsClicked();sidenav.close()">Trips</span>
+          <mat-icon iconPositionEnd>chevron_right</mat-icon>
+        </button>
+        <button mat-button class="w-full flex justify-between items-center px-4 rounded-none">
+          <span (click)="signOut();sidenav.close()">Sign Out</span>
           <mat-icon iconPositionEnd>chevron_right</mat-icon>
         </button>
       }@else {
