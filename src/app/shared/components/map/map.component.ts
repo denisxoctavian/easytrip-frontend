@@ -4,6 +4,7 @@ import { Map, MapStyle, Marker, config } from '@maptiler/sdk';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { DestinationsService } from '../../services/destinations.service';
+import { environment } from '../../../../environments/environment.development';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private mapContainer!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
-    config.apiKey = 'Ub3uHtMkgCWlP4xWId0g';
+    config.apiKey = environment.MAP_KEY;
   }
 
   ngAfterViewInit() {
