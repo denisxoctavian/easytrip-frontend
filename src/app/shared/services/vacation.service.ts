@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment.development";
 import { CookiesService } from "./cookies.service";
 import { Activity } from "../../models/activities";
+import { Vacation } from "../../models/vacations";
 
 
 
@@ -29,6 +30,10 @@ export class VacationService{
 
     create(requestBody:any):Observable<any>{
         return this.http.post<any>(environment.API_PATH+'/vacations',requestBody,this.httpOptions);
+    }
+
+    get(id: any):Observable<Vacation>{
+        return this.http.get<Vacation>(environment.API_PATH+`/vacations/${id}`,this.httpOptions);
     }
 
   

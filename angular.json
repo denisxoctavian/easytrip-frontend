@@ -31,7 +31,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss", "src/styles/tokens.scss"],
+            "styles": ["src/styles.scss", 
+            "src/styles/tokens.scss",
+            "./node_modules/maplibre-gl/dist/maplibre-gl.css"],
             "scripts": []
           },
           "configurations": {

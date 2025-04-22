@@ -3,6 +3,7 @@
 @use "tailwindcss";
 @use "./styles/_theme-colors.scss" as theme-colors;
 
+
 html {
   @include mat.theme(
     (
@@ -24,6 +25,8 @@ body {
 body {
   margin: 0;
   font-family: Poppins, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 body {
   background: var(--mat-sys-surface);
@@ -49,6 +52,10 @@ body {
 
   @include mat.datepicker-overrides((
     calendar-container-background-color:#f7f6f6,
+  ));
+
+  @include mat.expansion-overrides((
+    container-background-color: white,
   ));
 
 }

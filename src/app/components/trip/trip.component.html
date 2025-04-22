@@ -1,0 +1,60 @@
+<div class="flex h-screen overflow-hidden relative">
+    <div class="w-full md:w-1/2 h-full overflow-y-scroll scroll-smooth"
+         style="scrollbar-width: none; -ms-overflow-style: none;">
+      
+      <div class="relative">
+        <img src="https://picsum.photos/1000/500" class="w-full h-auto block">
+        <div class="absolute top-10 left-4 z-10 bg-black/40 rounded-xl p-4 shadow-lg backdrop-blur-sm">
+            <p class="text-white text-3xl font-semibold"
+               style="-webkit-text-stroke: 0.15px black;">
+              {{vacation.days}} days trip in {{vacation.country}}
+            </p>
+            <p class="text-white text-sm flex items-center gap-2 pt-2"
+               style="-webkit-text-stroke: 0.10px black;">
+              <mat-icon style="font-size: 20px">calendar_month</mat-icon>
+              <span>{{ formatDate(vacation.startingDate) }} - {{ formatDate(vacation.endingDate) }}</span>
+              <button mat-icon-button (click)="savePDF()"><mat-icon style="font-size: 20px">picture_as_pdf</mat-icon></button>
+            </p>
+          </div>
+
+      <mat-tab-group animationDuration="0ms" style="background-color: white;">
+        <mat-tab label="Itinerary">
+          @for(day of vacation.itineraryDayList; track day){
+            <mat-accordion class="example-headers-align">
+              <mat-expansion-panel [expanded]="step() === vacation.itineraryDayList.indexOf(day)" (opened)="setStep(vacation.itineraryDayList.indexOf(day))" hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                    Day {{day.dayNumber}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="flex flex-col gap-5 p-4">
+                  <mat-card appearance="outlined" style="background-color: white;">
+                    <mat-card-content><b>Morning: </b>{{day.morning}}</mat-card-content>
+                  </mat-card>
+                  <mat-card appearance="outlined" style="background-color: white;">
+                    <mat-card-content><b>Afternoon:</b>{{day.afternoon}}</mat-card-content>
+                  </mat-card>
+                  <mat-card appearance="outlined" style="background-color: white;">
+                    <mat-card-content><b>Evening:</b>{{day.evening}}</mat-card-content>
+                  </mat-card>
+                </div>
+              </mat-expansion-panel>
+  
+            </mat-accordion>
+          }
+        </mat-tab>
+  
+        <mat-tab label="Places to stay">
+          Content 2
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  
+    @if(isDesktop){
+      <div class="hidden md:block w-1/2 absolute right-0 top-0 h-[100vh] z-0">
+        <app-map></app-map>
+      </div>
+    }
+  </div>
+  

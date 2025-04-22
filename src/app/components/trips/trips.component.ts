@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import { UserService } from '../../shared/services/user.service';
 import { Vacation } from '../../models/vacations';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trips',
@@ -14,7 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TripsComponent {
   private userService = inject(UserService);
+  private router = inject(Router);
   vacations: Vacation[]= [];
+  
 
   ngOnInit(){
     this.userService.getVacations().subscribe({
@@ -29,8 +32,9 @@ export class TripsComponent {
     })
   }
 
-  onCardClick(evt: MouseEvent){
-    console.log(evt);
+  onCardClick(vacation: any) {
+    this.router.navigate(['/trip', vacation.id]);
+    console.log("Selected vacation:", vacation);
   }
 
 

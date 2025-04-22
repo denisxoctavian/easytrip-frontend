@@ -32,7 +32,15 @@ export class DestinationsService {
     }
   }
 
+  getDestinationXandY(destination: any){
+    return this.http.get<any>(`https://nominatim.openstreetmap.org/search?country=${destination}&format=json`);
+  }
 
+  getDestinationImage(destination: any){
+    return this.http.get<any>(`https://picsum.photos/seed/picsum/600/600`);
+  }
+
+  
   private extractRelevantFields(destinations: any[]): Destination[] {
     return destinations.map(destination => ({
       nameCommon: destination.name?.common || '',

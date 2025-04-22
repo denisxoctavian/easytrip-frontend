@@ -2,6 +2,7 @@ import { Activity } from "./activities";
 import { ItineraryDay } from "./itineraries";
 
 export interface Vacation{
+    id: number;
     budget: number;
     country: string;
     days: number;

@@ -5,7 +5,7 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 w-full px-4 pb-12">
     @for(vacation of vacations; track vacation){
-      <mat-card class="example-card w-85 h-60 mx-auto clickable" appearance="outlined" (click)="onCardClick($event)">
+      <mat-card class="example-card w-85 h-60 mx-auto clickable" appearance="outlined" (click)="onCardClick(vacation)">
         <mat-card-header class="mb-4">
           <div class="text-xl font-semibold text-gray-800">
             {{ vacation.country }}
