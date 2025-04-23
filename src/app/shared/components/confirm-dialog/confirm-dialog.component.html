@@ -1,0 +1,18 @@
+<div class="p-6 max-w-md">
+  <h2 mat-dialog-title class="text-2xl font-semibold text-gray-800 mb-5">
+    🗑️ Delete Vacation
+  </h2>
+
+  <mat-dialog-content class="text-lg text-gray-700 mb-6">
+    Are you sure you want to delete this vacation?
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="flex justify-end space-x-4">
+    <button mat-button (click)="clickNo()">
+      No
+    </button>
+    <button mat-button (click)="clickYes()">
+      Yes
+    </button>
+  </mat-dialog-actions>
+</div>

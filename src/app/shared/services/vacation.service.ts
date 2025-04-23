@@ -36,6 +36,10 @@ export class VacationService{
         return this.http.get<Vacation>(environment.API_PATH+`/vacations/${id}`,this.httpOptions);
     }
 
+    delete(id: any):Observable<any>{
+        return this.http.delete<any>(environment.API_PATH+`/vacations/${id}`,this.httpOptions);
+    }
+
   
     
 }

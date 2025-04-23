@@ -1,4 +1,5 @@
-<mat-toolbar class="border-b border-gray-300 flex justify-between items-center px-4 z-below">
+<mat-toolbar class="border-b border-gray-300 flex justify-between items-center px-4 z-below"
+  style="background-color: white;">
   <button aria-label="Homepage button" (click)="homeClicked()">
     <img src="/imgs/logo.png" alt="logo" class="w-[120px]" loading="eager">
   </button>
@@ -10,29 +11,29 @@
   </div>
 
   @if(userLogged){
-    <div class="hidden md:flex">
-      <button mat-button [matMenuTriggerFor]="signOutMenu" aria-label="icon-button with avatar" class="flex items-center">
-        <mat-icon>person</mat-icon>
-        <mat-icon iconPositionEnd class="ml-auto">keyboard_arrow_down</mat-icon>
-      </button>
+  <div class="hidden md:flex" >
+    <button mat-button [matMenuTriggerFor]="signOutMenu" aria-label="icon-button with avatar" class="flex items-center">
+      <mat-icon>person</mat-icon>
+      <mat-icon iconPositionEnd class="ml-auto">keyboard_arrow_down</mat-icon>
+    </button>
 
-      <mat-menu #signOutMenu="matMenu" class="w-35">
-        <button mat-menu-item>
-          <span (click)="tripsClicked()">Trip</span>
-        </button>
-        <button mat-menu-item>
-          <span (click)="signOut()">Sign Out</span>
-        </button>
-      </mat-menu>
-    </div>
+    <mat-menu #signOutMenu="matMenu" class="w-35" style="background-color: white;">
+      <button mat-menu-item style="background-color: white;">
+        <span (click)="tripsClicked()" >Trip</span>
+      </button>
+      <button mat-menu-item style="background-color: white;">
+        <span (click)="signOut()">Sign Out</span>
+      </button>
+    </mat-menu>
+  </div>
   }@else {
-    <div class="hidden md:flex">
-      <button mat-flat-button class="rounded-none" (click)="signIn()">Sign In</button>
-    </div>
+  <div class="hidden md:flex">
+    <button mat-flat-button class="rounded-none" (click)="signIn()">Sign In</button>
+  </div>
   }
 
-    <button class="md:hidden" (click)="toggleSidenav()">
-      <mat-icon>menu</mat-icon>
-    </button>    
-   
+  <button class="md:hidden" (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
 </mat-toolbar>

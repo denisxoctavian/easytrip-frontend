@@ -4,7 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, shareReplay, tap } from 'rxjs';
 import { StorageService } from './storage.service';
 import { Destination } from '../../models/destinations';
-;
+import { PropertyService } from './property.service';
+import { HotelApiResponse } from '../../models/hotels';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +16,7 @@ export class DestinationsService {
 
   private http = inject(HttpClient);
   private storage = inject(StorageService);
+
 
   constructor() {}
 
@@ -36,9 +40,32 @@ export class DestinationsService {
     return this.http.get<any>(`https://nominatim.openstreetmap.org/search?country=${destination}&format=json`);
   }
 
-  getDestinationImage(destination: any){
+  getDestinationImage(){
     return this.http.get<any>(`https://picsum.photos/seed/picsum/600/600`);
   }
+
+  getDestinationBookings(
+    latitude: number,
+    longitude: number,
+    arrival_date: string,
+    departure_date: string,
+    adults: number,
+    rooms: number,
+    price_min: number,
+    price_max: number,
+    languagecode: string,
+    currency_code: string,
+    options: any
+  ): Observable<any> {
+    const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotelsByCoordinates?latitude=${latitude}
+    &longitude=${longitude}&adults=${adults}&radius=400&room_qty=${rooms}
+    &languagecode=${languagecode}&currency_code=${currency_code}&arrival_date=${arrival_date}&departure_date=${departure_date}
+    &price_min=${price_min}&price_max=${price_max}`;
+  
+    return this.http.get<HotelApiResponse>(url, options);
+  }
+  
+  
 
   
   private extractRelevantFields(destinations: any[]): Destination[] {

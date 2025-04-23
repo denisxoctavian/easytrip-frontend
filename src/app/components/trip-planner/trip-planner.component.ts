@@ -15,6 +15,7 @@ import { AsyncPipe } from '@angular/common';
 import { ActivityService } from '../../shared/services/activity.service';
 import { Activity } from '../../models/activities';
 import { VacationService } from '../../shared/services/vacation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trip-planner',
@@ -40,6 +41,7 @@ export class TripPlannerComponent implements OnInit {
   private destinationService = inject(DestinationsService);
   private activityService = inject(ActivityService);
   private vacationService = inject(VacationService);
+   private router = inject(Router);
 
   days: number = 1;
   options: Destination[] = [];
@@ -70,7 +72,7 @@ export class TripPlannerComponent implements OnInit {
   });
 
   ngOnInit() {
-     this.loadActivities();
+    this.loadActivities();
     this.destinationService.getDestinationsByRegion().subscribe({
       next: (result) => {
         this.options = result;
@@ -154,15 +156,12 @@ export class TripPlannerComponent implements OnInit {
   
     this.vacationService.create(requestBody).subscribe({
      next: (result) => {
-      console.log(result);
+      this.router.navigate(['/trip', result.id]);
      },
      error: (err)=>{
       console.log(err);
      }
-
-    }
-     
-    )
+    })
 }
 
   

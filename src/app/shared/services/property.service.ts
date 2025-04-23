@@ -32,5 +32,9 @@ export class PropertyService{
         return this.http.get<any>(environment.API_PATH+'/properties/map/key',this.httpOptions);
     }
 
+    getRapidKey():Observable<any>{
+        return this.http.get<any>(environment.API_PATH+'/properties/rapid/key',this.httpOptions);
+    }
+
    
 }

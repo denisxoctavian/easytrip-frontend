@@ -1,57 +1,89 @@
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
-<p>home works!</p>
+<div class="flex flex-col items-center justify-start text-center min-h-screen px-4 pt-24 bg-white">
+    <h1 class="text-4xl md:text-7xl font-bold leading-tight mb-4 max-w-3xl">
+        <span class="text-black block">Easily plan amazing</span>
+        <span class="text-black block">trips with the help of</span>
+        <span class="text-orange-500 block">AI Trip Planner</span>
+    </h1>
+    <p class="text-gray-600 text-base md:text-lg max-w-2xl mb-6">
+        Your personal trip planner and travel curator, creating custom itineraries tailored to your interests and
+        budget.
+    </p>
+    <button mat-flat-button color="primary" class="px-6 py-3 rounded-full shadow-lg mb-8" (click)="actionButtonClicked()">
+        Get started – It's free!
+    </button>
+    <picture class="hidden sm:block">
+        <source srcset="/imgs/hero.jpg" media="(min-width: 640px)">
+        <img src="/imgs/hero.jpg" alt="planner"
+            class="mx-auto w-full max-w-screen-xl shadow-[0_0_20px_0_rgba(0,0,0,0.04)] border border-gray-200 rounded-xl" />
+    </picture>
+    <div class="flex flex-col lg:flex-row lg:justify-between gap-8 my-8 px-4 max-w-screen-xl mx-auto">
+        <div class="flex flex-col items-start w-full bg-gray-100 rounded-xl border border-gray-200 shadow-md p-8">
+            <h4 class="text-3xl font-bold mb-4 text-gray-800 text-left">AI Travel</h4>
+            <p class="text-lg text-gray-600 mb-6 text-left">
+                Get personalized accommodation suggestions tailored to your preferences. We handpick options that don’t
+                just match your needs—they go above and beyond to give you a smooth and comfortable travel experience.
+            </p>
+            <img src="/imgs/places-to-stay.jpg" alt="ai" loading="lazy" class="w-full h-auto rounded-lg mt-auto">
+        </div>
+        <div class="flex flex-col items-start w-full bg-gray-100 rounded-xl border border-gray-200 shadow-md p-8">
+            <h4 class="text-3xl font-bold mb-4 text-gray-800 text-left">Offline Access</h4>
+            <p class="text-lg text-gray-600 mb-6 text-left">
+                Enjoy the convenience of offline accessibility - with the option to download and save your plans as a
+                PDF,
+                you can always have your information at hand, no matter where you are.
+            </p>
+            <img src="/imgs/feature-3.webp" alt="offline" loading="lazy" class="w-full h-auto rounded-lg mt-auto">
+        </div>
+    </div>
+    <div class="px-4 sm:px-8 mb-12 sm:mb-20 bg-black text-white rounded-xl max-w-screen-xl mx-auto">
+        <div id="try-it" class="flex flex-col items-center justify-center text-center gap-y-8 p-8">
+            <h2 class="text-2xl sm:text-4xl font-semibold sm:leading-[3rem] px-4 sm:px-0">
+                Forget the hassle of planning—start your trip with EasyTrip now!
+            </h2>
 
+            <button mat-flat-button color="primary" class="w-full sm:w-auto px-8 py-4 rounded-full text-lg " (click)="actionButtonClicked()">
+                Try Now
+            </button>
+        </div>
+    </div>
+    <div class="px-4 sm:px-8 mb-12 sm:mb-20 max-w-screen-xl mx-auto bg-white text-black rounded-xl">
+        <div class="grid md:grid-cols-5 gap-10">
+            <div class="md:col-span-2">
+                <h2 class="text-2xl font-bold md:text-5xl md:leading-tight text-black">FAQs</h2>
+            </div>
+            <div class="md:col-span-3 bg-white text-black rounded-xl p-6 text-left">
+                <mat-accordion>
+                    <mat-expansion-panel class="bg-white border-b border-gray-200">
+                        <mat-expansion-panel-header class="text-lg font-semibold text-black">
+                            What is EasyTrip?
+                        </mat-expansion-panel-header>
+                        <p class="text-gray-800">
+                            Think of EasyTrip as your personal travel assistant—right in your pocket, ready whenever you
+                            need it. With just a few clicks, you’ll get custom travel plans made just for you,
+                            completely free, thanks to our smart AI trip planner.
+                        </p>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel class="bg-white border-b border-gray-200">
+                        <mat-expansion-panel-header class="text-lg font-semibold text-black">
+                            How does EasyTrip create personalized recommendations?
+                        </mat-expansion-panel-header>
+                        <p class="text-gray-800">
+                            Easytrip gives you travel suggestions based on what you like and need—so every part of your
+                            trip fits you perfectly. Our smart AI does the work to build a plan that’s made just for
+                            you.
+                        </p>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel class="bg-white border-b border-gray-200">
+                        <mat-expansion-panel-header class="text-lg font-semibold text-black">
+                            Can I access EasyTrip offline?
+                        </mat-expansion-panel-header>
+                        <p class="text-gray-800">
+                            Yes, EasyTrip provides the option to download your plans as a PDF, allowing for easy offline
+                            access whenever you need them.
+                        </p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>

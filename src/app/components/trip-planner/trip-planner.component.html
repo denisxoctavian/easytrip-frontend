@@ -4,56 +4,44 @@
         <p class="text-base sm:text-lg text-gray-500 mb-6">Just provide some basic information, and our trip planner
             will generate a customized itinerary based on your preferences.</p>
 
-            <form [formGroup]="form">
+        <form [formGroup]="form">
 
-                <div class="relative w-full mt-5">
-                    <mat-form-field class="w-full">
-                        <input
-                          type="text"
-                          matInput
-                          formControlName="destination"
-                          placeholder="Search the country"
-                          [matAutocomplete]="auto"
-                          style="padding-left: 30px;"
-                        />
-                  
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayFn"
-                          (optionSelected)="onOptionSelected($event.option.value)"
-                        >
-                          @if((filteredOptions | async) === null){
-                            <mat-option disabled>
-                              Type at least 2 characters to start searching
-                            </mat-option>
-                          }
-                          @for (option of filteredOptions | async; track option) {
-                            <mat-option [value]="option">
-                              <div class="flex flex-col">
+            <div class="relative w-full mt-5">
+                <mat-form-field class="w-full">
+                    <input type="text" matInput formControlName="destination" placeholder="Search the country"
+                        [matAutocomplete]="auto" style="padding-left: 30px;" />
+
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)="onOptionSelected($event.option.value)">
+                        @if((filteredOptions | async) === null){
+                        <mat-option disabled>
+                            Type at least 2 characters to start searching
+                        </mat-option>
+                        }
+                        @for (option of filteredOptions | async; track option) {
+                        <mat-option [value]="option">
+                            <div class="flex flex-col">
                                 <div class="flex items-center gap-2">
-                                  <img
-                                    [src]="option.flagsPng"
-                                    alt="{{ option.nameCommon }} flag"
-                                    class="w-5 h-3 object-cover"
-                                  />
-                                  <span>{{ option.nameCommon }}</span>
+                                    <img [src]="option.flagsPng" alt="{{ option.nameCommon }} flag"
+                                        class="w-5 h-3 object-cover" />
+                                    <span>{{ option.nameCommon }}</span>
                                 </div>
                                 <span class="text-xs text-gray-500 ml-7">
-                                  {{ option.capital }}
+                                    {{ option.capital }}
                                 </span>
-                              </div>
-                            </mat-option>
-                          }
-                        </mat-autocomplete>
-                      </mat-form-field>
+                            </div>
+                        </mat-option>
+                        }
+                    </mat-autocomplete>
+                </mat-form-field>
 
-                    @if(selectedDestination){
-                    <div class="absolute left-3 top-[30%]">
-                        <img [src]="selectedDestination.flagsPng" alt="Flag" class="w-5 h-3 object-cover" />
-                    </div>
-                    }
-
+                @if(selectedDestination){
+                <div class="absolute left-3 top-[30%]">
+                    <img [src]="selectedDestination.flagsPng" alt="Flag" class="w-5 h-3 object-cover" />
                 </div>
+                }
+
+            </div>
 
 
             <hr class="my-4 border-t-1 border-gray-200">
@@ -62,11 +50,8 @@
                 <div class="font-medium text-lg sm:text-xl">When are you planning to travel?</div>
 
                 <mat-form-field class="mt-5 w-full">
-                    <input matInput [matDatepicker]="picker" placeholder="Choose the date"
-                        [min]="todayDate"
-                        readonly
-                        (click)="picker.open()"
-                        formControlName="date" style="padding-left: 30px;">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose the date" [min]="todayDate" readonly
+                        (click)="picker.open()" formControlName="date" style="padding-left: 30px;">
                     <mat-datepicker-toggle matIconSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>
@@ -220,23 +205,22 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <div class="flex flex-wrap gap-4 w-full">
-                            
-                        @for(activity of activities ; track activity){
-                          <div class="flex-shrink-0 w-[47%] md:w-[31%]">
-                            <mat-checkbox [formControlName]="normalizeNames(activity.activityType)"
-                                          class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
-                              <img [src]="'/imgs/' + normalizeNames(activity.activityType) + '.svg'" 
-                                   [alt]="activity.activityType" 
-                                   class="h-7 sm:h-8">
-                              <div class="mt-2 text-sm sm:text-base font-medium">{{ activity.activityType }}</div>
-                            </mat-checkbox>
-                          </div>
-                        }
+
+                            @for(activity of activities ; track activity){
+                            <div class="flex-shrink-0 w-[47%] md:w-[31%]">
+                                <mat-checkbox [formControlName]="normalizeNames(activity.activityType)"
+                                    class="w-full h-full flex flex-col justify-between text-start border border-gray-300 rounded-md p-4 cursor-pointer hover:border-gray-800 transition-all">
+                                    <img [src]="'/imgs/' + normalizeNames(activity.activityType) + '.svg'"
+                                        [alt]="activity.activityType" class="h-7 sm:h-8">
+                                    <div class="mt-2 text-sm sm:text-base font-medium">{{ activity.activityType }}</div>
+                                </mat-checkbox>
+                            </div>
+                            }
                         </div>
                     </div>
-                      
 
-                <!--    <div class="flex justify-between items-center">
+
+                    <!--    <div class="flex justify-between items-center">
                         <div class="flex flex-wrap gap-4 w-full">
 
                             <div class="flex-shrink-0 w-[47%] md:w-[31%]">
@@ -313,10 +297,9 @@
 
             <div class="pb-20"></div>
         </form>
-        <div
-        class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end touch-none overscroll-contain z-50"
-        id="submitDiv">
-        <button mat-flat-button (click)="submitForm()">Submit</button>
+        <div class="w-full fixed bottom-0 left-0 py-4 border-t-2 bg-white border-gray-300 px-4 flex justify-end touch-none overscroll-contain z-50"
+            id="submitDiv">
+            <button mat-flat-button (click)="submitForm()">Submit</button>
         </div>
     </div>
 </div>
