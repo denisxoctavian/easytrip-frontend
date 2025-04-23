@@ -63,8 +63,8 @@ readonly dialog = inject(MatDialog);
     this.router.navigate(['/trip-planner'])
   }
 
-  blogClicked(){
-    this.router.navigate(['/blog'])
+  aboutClicked(){
+    this.router.navigate(['/about'])
   }
 
   dealsClicked(){

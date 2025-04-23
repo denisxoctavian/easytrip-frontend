@@ -73,8 +73,8 @@ export class NavbarComponent {
     this.router.navigate(['/trip-planner'])
   }
 
-  blogClicked(){
-    this.router.navigate(['/blog'])
+  aboutClicked(){
+    this.router.navigate(['/about'])
   }
 
   dealsClicked(){
