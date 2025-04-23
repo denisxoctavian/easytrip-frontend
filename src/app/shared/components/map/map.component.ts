@@ -5,6 +5,7 @@ import { Map, MapStyle, Marker, config } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { DestinationsService } from '../../services/destinations.service';
 import { environment } from '../../../../environments/environment.development';
+import { PropertyService } from '../../services/property.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { environment } from '../../../../environments/environment.development';
 
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private destinationService = inject(DestinationsService);
+  private propertyService = inject(PropertyService);
   
   map: Map | undefined;
 
@@ -23,7 +25,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private mapContainer!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
-    config.apiKey = environment.MAP_KEY;
+    this.propertyService.getMapKey().subscribe({
+      next: (res)=>{
+        config.apiKey = res.key;
+    
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -31,7 +41,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     
     this.destinationService.getDestinationXandY('Romania').subscribe({
       next: (result)=>{
-        console.log(result)
         if(result.length > 0){
            lat = +result[0].lat;
            lon = +result[0].lon;
