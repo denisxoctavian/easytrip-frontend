@@ -3,9 +3,13 @@
 <div class="min-h-screen px-4 flex flex-col items-start" style="background-color: white;">
   <div class="p-8 pl-11 rounded-lg w-full sm:w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 mt-12">
     <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8">Trips</h1>
+    @if(vacations.length === 0){
+      <h1 text-xl sm:text-2xl md:text-xl lg:text-xl font-bold mb-8>No vacations generated yet!</h1>
+    }
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 w-full px-4 pb-12">
+ 
     @for(vacation of vacations; track vacation){
     <mat-card class="example-card w-85 h-60 mx-auto clickable relative" appearance="outlined">
       <div class="flex items-start justify-between mb-4 px-4 pt-4">

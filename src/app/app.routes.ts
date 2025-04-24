@@ -12,11 +12,11 @@ import { AboutComponent } from './components/about/about.component';
 export const routes: Routes = [
     { path:'', component: HomeComponent},
     { path:'', component: HomeComponent},
-    { path:'trip-planner', component: TripPlannerComponent}, //canActivate: [AuthGuard] removed just for testing purposes
+    { path:'trip-planner', component: TripPlannerComponent, canActivate: [AuthGuard] },
     { path:'login', component: LoginComponent},
     { path:'home', component: HomeComponent},
     { path:'about', component: AboutComponent},
-    { path:'trips', component: TripsHistoryComponent},
+    { path:'trips', component: TripsHistoryComponent, canActivate: [AuthGuard] },
     { path: 'trip/:id', component: TripComponent },
     { path:'deals', component: DealsComponent,canActivate: [AuthGuard]}
     
